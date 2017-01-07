@@ -7,7 +7,7 @@ services:
     networks: 
     - vaultnet 
     ports:
-    - "8500:8500" # optional web ui
+    - 8500:8500 # optional web ui
 
   vault:
     command: server -config=/config/vault_with_consul.hcl
@@ -19,9 +19,22 @@ services:
     networks: 
     - vaultnet
     ports:
-    - "8200:8200"
+    - 8200:8200
     volumes:
     - ./config:/config
 
-networks: 
+  # a bash shell with a few useful tools installed
+  # first run: toolbox\build.ps1
+  # use with: docker-compose run toolbox bash
+  toolbox:
+    image: toolbox
+    environment:
+      VAULT_HOST: 'vault'
+    networks:
+    - vaultnet
+    volumes:
+    - ./scripts:/scripts
+    working_dir: /scripts
+
+networks:
   vaultnet:
