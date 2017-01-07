@@ -81,3 +81,10 @@ Now we initise Vault (thanks [Ben Schwartz](https://github.com/benschw))
 
 Typically we would initialise with five keys and a key threshold of three. E.g. each administrator would know only one key so three people would be required to unseal Vault.
 Here we use just one key, this and the root token are stored in the newly created `scripts/vault_key` and root token `scripts/root_token` to simplify the demo.
+
+Using one of one keys we can unseal Vault.
+
+```
+./02-unseal.sh
+```
+
