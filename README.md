@@ -88,3 +88,11 @@ Using one of one keys we can unseal Vault.
 ./02-unseal.sh
 ```
 
+Logged in with the root token we can configure vault. This creates the following:
+- enables [AppRole](https://www.vaultproject.io/docs/auth/approle.html) auth backend
+- mssqlaccess policy to read the mssql backend
+- musicstoreapp app role with the mssqlaccess policy
+
+```
+./03-configure.sh
+```
