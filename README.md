@@ -10,7 +10,7 @@ To ensure we have all the tools to run the demo scripts we will use an Ubuntu co
 
 If you don't need this remove the `toolbox` section from `docker-compose.yml` and set the environment varaible `VAULT_HOST` to `localhost` which will utilise the `8200` port mapping.
 
-Create the docker image
+Create the docker image.
 
 ```
 toolbox\build.ps1
@@ -67,8 +67,17 @@ Code: 400. Errors:
 * server is not yet initialized
 ```
 
-Open a shell in the scripts directory. To use the toolbox, start an interactive bash shell
+Open a shell in the scripts directory. To use the toolbox, start an interactive bash shell.
 
 ```
 docker-compose run toolbox bash
 ```
+
+Now we initise Vault (thanks [Ben Schwartz](https://github.com/benschw))
+
+```
+./01-init.sh
+```
+
+Typically we would initialise with five keys and a key threshold of three. E.g. each administrator would know only one key so three people would be required to unseal Vault.
+Here we use just one key, this and the root token are stored in the newly created `scripts/vault_key` and root token `scripts/root_token` to simplify the demo.
