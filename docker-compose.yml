@@ -23,6 +23,16 @@ services:
     volumes:
     - ./config:/config
 
+  mssql:
+    image: microsoft/mssql-server-linux
+    environment:
+      ACCEPT_EULA: 'Y'
+      SA_PASSWORD: 'Passw0rd'
+    networks:
+    - vaultnet
+    ports:
+    - 1433:1433
+
   # a bash shell with a few useful tools installed
   # first run: toolbox\build.ps1
   # use with: docker-compose run toolbox bash
