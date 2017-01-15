@@ -1,3 +1,3 @@
 # Our Vault secret files
 vault_key
-root_token
+*_token

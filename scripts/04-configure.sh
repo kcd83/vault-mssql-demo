@@ -11,11 +11,11 @@ curl -X POST http://${VAULT_HOST}:8200/v1/sys/auth/approle -H "X-Vault-Token: $R
 
 echo "create 'mssqlaccess' policy"
 curl -X POST http://${VAULT_HOST}:8200/v1/sys/policy/mssqlaccess -H "X-Vault-Token: $ROOT_TOKEN" \
-	-d '{"rules":"path \"mssql/creds/efgodmode\" {capabilities=[\"read\",\"list\"}"}'
+	-d '{"rules":"path \"mssql/creds/efgodmode\" {capabilities=[\"read\",\"list\"]}"}'
 
 echo "add 'musicstoreapp' app role"
 curl -X POST http://${VAULT_HOST}:8200/v1/auth/approle/role/musicstoreapp -H "X-Vault-Token: $ROOT_TOKEN" \
-	-d '{"policies": "mssqlaccess"}'
+	-d '{"role_id": "musicstoreapp", "policies": "mssqlaccess"}'
 
 echo "enable and configure mssql mount"
 curl -X POST http://${VAULT_HOST}:8200/v1/sys/mounts/mssql -H "X-Vault-Token: $ROOT_TOKEN" \
@@ -27,4 +27,3 @@ curl -X POST http://${VAULT_HOST}:8200/v1/mssql/config/connection -H "X-Vault-To
 echo "create efgodmode role for generating logins with dbcreator privileges required for entity framework"
 curl -X POST http://${VAULT_HOST}:8200/v1/mssql/roles/efgodmode -H "X-Vault-Token: $ROOT_TOKEN" \
 	-d '{"sql":"CREATE LOGIN [{{name}}] WITH PASSWORD = '"'"'{{password}}'"'"'; CREATE USER [{{name}}] FOR LOGIN [{{name}}]; ALTER SERVER ROLE [dbcreator] ADD MEMBER [{{name}}];"}'
-

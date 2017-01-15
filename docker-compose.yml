@@ -14,8 +14,10 @@ services:
     depends_on:
     - consul
     environment:
-      VAULT_ADDR: 'http://127.0.0.1:8200'
-    image: sjourdan/vault
+      VAULT_ADDR: 'http://127.0.0.1:8200' # not https for this demo
+    image: vault
+    cap_add:
+    - IPC_LOCK
     networks: 
     - vaultnet
     ports:
