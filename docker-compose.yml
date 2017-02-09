@@ -36,21 +36,19 @@ services:
     - 1433:1433
 
   app:
-#    image: microsoft/dotnet:1.1.0-sdk-projectjson
     image: microsoft/dotnet:1.0.3-sdk-projectjson
     networks:
     - vaultnet
     volumes:
-#    - ./MusicStore/samples/MusicStore.Standalone:/app
-    - ./app/aspnetcore/data/ef-mvc/intro/samples/cu-final:/app
-    - ./scripts:/scripts
+    - ./app:/app
+    - ./scripts/app/:/scripts/
     environment:
       ASPNETCORE_URLS: http://0.0.0.0:5000
       VAULT_HOST: 'vault'
     ports:
     - 5000:5000
     working_dir: /app
-    command: /scripts/app/entrypoint.sh
+    command: /scripts/entrypoint.sh
 
   # a bash shell with a few useful tools installed
   # first run: toolbox\build.ps1

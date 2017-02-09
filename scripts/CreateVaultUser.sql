@@ -1,5 +1,11 @@
 USE [master]
 
+IF db_id('ContosoUniversity') IS NULL
+BEGIN
+	CREATE DATABASE [ContosoUniversity]
+END
+GO
+
 IF NOT EXISTS (SELECT * FROM sys.database_principals WHERE name = N'vault')
 BEGIN
 	CREATE LOGIN vault WITH PASSWORD = 'Str0ng!Passw0rd'

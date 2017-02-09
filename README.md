@@ -21,7 +21,7 @@ toolbox\build.ps1
 Start Vault with Consul for data storage.
 
 ```
-docker-compose up -d
+docker-compose up -d consul vault mssql
 ```
 
 You can check the logs if this started correctly and consul bootstrapped itself as the leader.
@@ -50,7 +50,6 @@ consul_1  |     2017/01/06 23:48:37 [INFO] consul: cluster leadership acquired
 consul_1  |     2017/01/06 23:48:37 [INFO] consul: New leader elected: 28d0d0e15dfb
 ...
 ```
-
 
 ## Initialise Vault
 
@@ -121,4 +120,17 @@ curl http://vault:8200/v1/mssql/creds/efgodmode -H "X-Vault-Token: $AUTH_TOKEN"
   "warnings": null,
   "auth": null
 }
+```
+
+Create app auth token
+
+```
+./05-getapptoken.sh
+```
+
+
+Start the app
+
+```
+docker-compose up app
 ```
